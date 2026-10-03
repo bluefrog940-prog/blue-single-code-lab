@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BLUE SINGLE CODE LAB</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    background:#05070a;
+    color:#e8faff;
+    font-family:Arial,Tahoma,sans-serif;
+}
+
+.container{
+    width:100%;
+    max-width:480px;
+    margin:auto;
+    padding:25px 16px;
+}
+
+.logo{
+    text-align:center;
+    margin:30px 0;
+}
+
+.logo h1{
+    margin:0;
+    color:#00d9ff;
+    font-size:27px;
+    text-shadow:0 0 15px #00d9ff;
+}
+
+.logo p{
+    color:#71818a;
+    font-size:13px;
+}
+
+.box{
+    background:#0b1015;
+    border:1px solid #123442;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 0 25px #00151d;
+}
+
+.tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom:20px;
+}
+
+.tabs button{
+    flex:1;
+    padding:12px;
+    border:1px solid #164252;
+    border-radius:10px;
+    background:#071016;
+    color:#8baab5;
+    cursor:pointer;
+}
+
+.tabs button.active{
+    background:#00bcd4;
+    color:#001014;
+    font-weight:bold;
+}
+
+.form{
+    display:none;
+}
+
+.form.active{
+    display:block;
+}
+
+label{
+    display:block;
+    margin:12px 0 6px;
+    color:#8fb6c2;
+    font-size:13px;
+}
+
+input{
+    width:100%;
+    padding:13px;
+    border-radius:10px;
+    border:1px solid #183d4b;
+    background:#05090d;
+    color:white;
+    outline:none;
+}
+
+input:focus{
+    border-color:#00d9ff;
+    box-shadow:0 0 8px #003c49;
+}
+
+.btn{
+    width:100%;
+    margin-top:18px;
+    padding:14px;
+    border:0;
+    border-radius:10px;
+    background:#00c8e8;
+    color:#001014;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn:active{
+    transform:scale(.98);
+}
+
+.message{
+    min-height:20px;
+    margin-top:15px;
+    text-align:center;
+    font-size:13px;
+}
+
+.info{
+    margin-top:25px;
+    text-align:center;
+    color:#536973;
+    font-size:12px;
+}
+
+.status{
+    margin-top:20px;
+    padding:10px;
+    border-radius:8px;
+    background:#061318;
+    color:#53747e;
+    font-size:12px;
+    text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">
+        <h1>BLUE SINGLE CODE LAB</h1>
+        <p>CYBER • CODE • COMMUNITY</p>
+    </div>
+
+    <div class="box">
+
+        <div class="tabs">
+            <button id="loginTab" class="active" onclick="showForm('login')">
+                ورود
+            </button>
+
+            <button id="registerTab" onclick="showForm('register')">
+                ثبت‌نام
+            </button>
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <div id="loginForm" class="form active">
+
+            <label>نام کاربری</label>
+
+            <input
+                id="loginUsername"
+                type="text"
+                autocomplete="username"
+                placeholder="username"
+            >
+
+            <label>رمز عبور</label>
+
+            <input
+                id="loginPassword"
+                type="password"
+                autocomplete="current-password"
+                placeholder="password"
+            >
+
+            <button class="btn" onclick="login()">
+                ورود به CODE LAB
+            </button>
+
+        </div>
+
+
+        <!-- REGISTER -->
+
+        <div id="registerForm" class="form">
+
+            <label>نام</label>
+
+            <input
+                id="registerName"
+                type="text"
+                placeholder="نام شما"
+            >
+
+            <label>نام کاربری</label>
+
+            <input
+                id="registerUsername"
+                type="text"
+                autocomplete="username"
+                placeholder="username"
+            >
+
+            <label>رمز عبور</label>
+
+            <input
+                id="registerPassword"
+                type="password"
+                autocomplete="new-password"
+                placeholder="password"
+            >
+
+            <button class="btn" onclick="register()">
+                ساخت حساب
+            </button>
+
+        </div>
+
+
+        <div id="message" class="message"></div>
+
+        <div class="status">
+            ● SERVER ONLINE
+        </div>
+
+    </div>
+
+    <div class="info">
+        BLUE SINGLE © CODE LAB
+    </div>
+
+</div>
+
+
+<script>
+
+async function api(url, options = {}){
+
+    const response = await fetch(url, {
+        credentials: "same-origin",
+        ...options
+    });
+
+    let data;
+
+    try{
+        data = await response.json();
+    }catch{
+        data = {};
+    }
+
+    if(!response.ok){
+        throw new Error(
+            data.error ||
+            "خطا در ارتباط با سرور"
+        );
+    }
+
+    return data;
+}
+
+
+function showMessage(text, error=false){
+
+    const box = document.getElementById("message");
+
+    box.textContent = text;
+
+    box.style.color =
+        error ? "#ff5c5c" : "#00e5ff";
+}
+
+
+function showForm(type){
+
+    document.getElementById("loginForm")
+        .classList.remove("active");
+
+    document.getElementById("registerForm")
+        .classList.remove("active");
+
+    document.getElementById("loginTab")
+        .classList.remove("active");
+
+    document.getElementById("registerTab")
+        .classList.remove("active");
+
+
+    if(type === "login"){
+
+        document.getElementById("loginForm")
+            .classList.add("active");
+
+        document.getElementById("loginTab")
+            .classList.add("active");
+
+    }else{
+
+        document.getElementById("registerForm")
+            .classList.add("active");
+
+        document.getElementById("registerTab")
+            .classList.add("active");
+    }
+
+    showMessage("");
+}
+
+
+async function login(){
+
+    const username =
+        document.getElementById("loginUsername")
+        .value.trim();
+
+    const password =
+        document.getElementById("loginPassword")
+        .value;
+
+
+    if(!username || !password){
+
+        showMessage(
+            "نام کاربری و رمز عبور را وارد کن",
+            true
+        );
+
+        return;
+    }
+
+
+    showMessage("در حال ورود...");
+
+
+    try{
+
+        const result = await api(
+            "/api/login",
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body:JSON.stringify({
+                    username,
+                    password
+                })
+            }
+        );
+
+
+        if(result.ok){
+
+            showMessage("ورود موفق بود ✓");
+
+            setTimeout(()=>{
+                window.location.href =
+                    "/dashboard";
+            },500);
+        }
+
+    }catch(error){
+
+        showMessage(
+            error.message,
+            true
+        );
+    }
+}
+
+
+async function register(){
+
+    const name =
+        document.getElementById("registerName")
+        .value.trim();
+
+    const username =
+        document.getElementById("registerUsername")
+        .value.trim();
+
+    const password =
+        document.getElementById("registerPassword")
+        .value;
+
+
+    if(!username || !password){
+
+        showMessage(
+            "نام کاربری و رمز عبور را وارد کن",
+            true
+        );
+
+        return;
+    }
+
+
+    showMessage("در حال ساخت حساب...");
+
+
+    try{
+
+        const result = await api(
+            "/api/register",
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body:JSON.stringify({
+                    name:name || username,
+                    username,
+                    password
+                })
+            }
+        );
+
+
+        if(result.ok){
+
+            showMessage(
+                "حساب ساخته شد ✓"
+            );
+
+            setTimeout(()=>{
+                window.location.href =
+                    "/dashboard";
+            },500);
+        }
+
+    }catch(error){
+
+        showMessage(
+            error.message,
+            true
+        );
+    }
+}
+
+
+/* Enter key */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key !== "Enter")
+            return;
+
+        const loginActive =
+            document
+            .getElementById("loginForm")
+            .classList
+            .contains("active");
+
+        if(loginActive){
+            login();
+        }else{
+            register();
+        }
+    }
+);
+
+</script>
+
+</body>
+</html>

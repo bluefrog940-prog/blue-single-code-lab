@@ -1,0 +1,38 @@
+[
+  {
+    "id": "4726d991e4ae42ba88f4f21dab7bfc0e",
+    "username": "blue single [admin]",
+    "password": "1234",
+    "name": "Blue",
+    "display_name": "محمد علی",
+    "bio": "سلام دوستان خوش اومدید به سایتمون",
+    "points": 0,
+    "codes": 0,
+    "created_at": "2026-10-03 13:05:10"
+  },
+  {
+    "id": "b587e6806e5b44c4ba955956f87a99ad",
+    "username": "admin",
+    "password": "1234",
+    "name": "Blue",
+    "display_name": "Blue",
+    "bio": "",
+    "points": 0,
+    "codes": 0,
+    "created_at": "2026-10-03 13:06:55"
+  },
+  {
+    "id": "c923f392918c46b384d7ca432e62acbd",
+    "name": "CREATED BY BLUE SINGLE",
+    "username": "blue single",
+    "password": "scrypt:32768:8:1$xZvSSAccIhzUNRFg$d43f0ef652824ec94f5e1ed7d17f13eab60b5c5ba81662fcf82396a8bfbc5fa3f96f5fd3fcaba39ca835b5fedc461b6dbb076dca8a7b3c0b6be5a9426d6e8847",
+    "bio": "",
+    "avatar": "",
+    "points": 0,
+    "xp": 0,
+    "level": 1,
+    "codes": 0,
+    "likes": 0,
+    "created_at": "2026-10-03 13:14:08"
+  }
+]

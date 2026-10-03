@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BLUE SINGLE // CODE LAB</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+    --bg:#02050a;
+    --panel:#07101b;
+    --panel2:#0a1624;
+    --blue:#159cff;
+    --cyan:#22d3ff;
+    --text:#eef8ff;
+    --muted:#7893aa;
+    --line:#123653;
+    --green:#20e6a0;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 50% -10%,#0b3c69 0,transparent 38%),
+        radial-gradient(circle at 100% 50%,#06355b22,transparent 30%),
+        var(--bg);
+    color:var(--text);
+    font-family:Arial,sans-serif;
+    overflow-x:hidden;
+}
+
+/* GRID */
+
+body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.13;
+    background-image:
+        linear-gradient(#159cff 1px,transparent 1px),
+        linear-gradient(90deg,#159cff 1px,transparent 1px);
+    background-size:45px 45px;
+    mask-image:linear-gradient(to bottom,black,transparent 85%);
+}
+
+/* SCANLINE */
+
+body:after{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.025;
+    background:repeating-linear-gradient(
+        to bottom,
+        #fff 0,
+        #fff 1px,
+        transparent 1px,
+        transparent 4px
+    );
+}
+
+/* NAV */
+
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:99;
+
+    height:72px;
+    padding:0 6%;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    background:#020811dd;
+    border-bottom:1px solid #159cff30;
+    backdrop-filter:blur(18px);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-weight:900;
+    font-size:21px;
+    color:var(--blue);
+    text-shadow:0 0 18px #159cff;
+}
+
+.logo-box{
+    width:38px;
+    height:38px;
+
+    display:grid;
+    place-items:center;
+
+    border:1px solid var(--blue);
+    border-radius:10px;
+
+    background:#159cff12;
+    box-shadow:0 0 20px #159cff25;
+}
+
+.navlinks{
+    display:flex;
+    gap:24px;
+}
+
+.navlinks a{
+    color:#89a7bd;
+    text-decoration:none;
+    font-size:14px;
+    transition:.2s;
+}
+
+.navlinks a:hover{
+    color:#fff;
+    text-shadow:0 0 12px var(--blue);
+}
+
+.login{
+    padding:10px 17px;
+    border:1px solid var(--blue);
+    border-radius:10px;
+    color:white;
+    text-decoration:none;
+    background:#159cff12;
+}
+
+/* HERO */
+
+.hero{
+    min-height:100vh;
+    padding:145px 6% 80px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    position:relative;
+}
+
+.hero-content{
+    width:100%;
+    max-width:1050px;
+    text-align:center;
+}
+
+.online{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    padding:8px 15px;
+
+    border:1px solid #20e6a055;
+    border-radius:30px;
+
+    color:var(--green);
+    background:#20e6a00b;
+
+    font-size:13px;
+}
+
+.online i{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 12px var(--green);
+}
+
+.hero h1{
+    margin-top:25px;
+
+    font-size:clamp(45px,10vw,100px);
+    line-height:.95;
+
+    letter-spacing:-4px;
+
+    text-shadow:
+        0 0 20px #159cff66,
+        0 0 70px #159cff22;
+}
+
+.hero h1 span{
+    color:var(--blue);
+}
+
+.subtitle{
+    max-width:700px;
+    margin:28px auto;
+
+    color:var(--muted);
+    line-height:2;
+    font-size:17px;
+}
+
+.actions{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.btn{
+    padding:14px 24px;
+    border-radius:12px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+.primary{
+    color:#fff;
+    background:linear-gradient(135deg,#087cff,#12b7ff);
+    box-shadow:0 0 30px #087cff35;
+}
+
+.secondary{
+    color:#b8d8ed;
+    border:1px solid var(--line);
+    background:#07111d;
+}
+
+/* TERMINAL */
+
+.terminal{
+    max-width:850px;
+    margin:55px auto 0;
+
+    text-align:left;
+    direction:ltr;
+
+    border:1px solid #16476b;
+    border-radius:17px;
+
+    overflow:hidden;
+
+    background:#02060b;
+
+    box-shadow:
+        0 0 45px #008cff12,
+        inset 0 0 40px #008cff05;
+}
+
+.terminal-top{
+    height:43px;
+
+    display:flex;
+    align-items:center;
+    gap:7px;
+
+    padding:0 15px;
+
+    background:#07111b;
+    border-bottom:1px solid #16476b;
+}
+
+.dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#159cff;
+}
+
+.terminal-title{
+    margin-left:8px;
+    color:#63819a;
+    font:12px monospace;
+}
+
+.terminal-body{
+    min-height:230px;
+    padding:22px;
+
+    font:14px/2 monospace;
+    color:#b8dfff;
+}
+
+.prompt{color:#20e6a0}
+.command{color:#1daaff}
+.dim{color:#5c7890}
+
+/* SECTIONS */
+
+section.block{
+    padding:100px 6%;
+    position:relative;
+}
+
+.heading{
+    text-align:center;
+    margin-bottom:45px;
+}
+
+.heading small{
+    color:var(--blue);
+    font-family:monospace;
+}
+
+.heading h2{
+    margin:10px 0;
+    font-size:38px;
+}
+
+.heading p{
+    color:var(--muted);
+}
+
+/* FEATURE GRID */
+
+.grid{
+    max-width:1100px;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:17px;
+}
+
+.card{
+    padding:25px;
+
+    border:1px solid var(--line);
+    border-radius:18px;
+
+    background:
+        linear-gradient(145deg,#091625,#040b13);
+
+    transition:.25s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    border-color:#159cff77;
+    box-shadow:0 15px 45px #008cff10;
+}
+
+.card-icon{
+    font-size:34px;
+    margin-bottom:17px;
+}
+
+.card h3{
+    margin-bottom:10px;
+    color:#22b5ff;
+}
+
+.card p{
+    color:#7892a8;
+    line-height:1.8;
+    font-size:14px;
+}
+
+/* STATS */
+
+.stats{
+    max-width:1000px;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:15px;
+}
+
+.stat{
+    text-align:center;
+    padding:27px 15px;
+
+    border:1px solid var(--line);
+    border-radius:17px;
+
+    background:#06101a;
+}
+
+.stat strong{
+    display:block;
+    font-size:37px;
+    color:var(--blue);
+    text-shadow:0 0 20px #159cff44;
+}
+
+.stat span{
+    display:block;
+    margin-top:8px;
+    color:var(--muted);
+}
+
+/* CODE */
+
+.code-window{
+    max-width:900px;
+    margin:auto;
+
+    border:1px solid var(--line);
+    border-radius:17px;
+    overflow:hidden;
+
+    background:#03070c;
+}
+
+.code-header{
+    padding:14px 18px;
+    background:#07121e;
+    color:#22b5ff;
+    font:13px monospace;
+}
+
+pre{
+    margin:0;
+    padding:25px;
+
+    overflow:auto;
+
+    direction:ltr;
+    text-align:left;
+
+    color:#bde2ff;
+
+    font:14px/1.9 monospace;
+}
+
+/* RANK */
+
+.rank-box{
+    max-width:700px;
+    margin:auto;
+}
+
+.rank{
+    display:flex;
+    align-items:center;
+    gap:15px;
+
+    margin:10px 0;
+    padding:15px;
+
+    border:1px solid var(--line);
+    border-radius:14px;
+
+    background:#06101a;
+}
+
+.rank-num{
+    width:42px;
+    height:42px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:12px;
+
+    background:#087cff;
+    font-weight:bold;
+}
+
+.rank-info{
+    flex:1;
+}
+
+.rank-info b{
+    color:white;
+}
+
+.rank-info small{
+    color:#66839b;
+}
+
+.points{
+    color:#20e6a0;
+    font-weight:bold;
+}
+
+/* FOOTER */
+
+footer{
+    padding:45px 20px;
+    text-align:center;
+
+    border-top:1px solid var(--line);
+
+    background:#02060b;
+
+    color:#5e788e;
+}
+
+footer strong{
+    color:var(--blue);
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    nav{
+        padding:0 18px;
+    }
+
+    .navlinks{
+        display:none;
+    }
+
+    .hero{
+        padding-left:20px;
+        padding-right:20px;
+    }
+
+    .hero h1{
+        letter-spacing:-2px;
+    }
+
+    .subtitle{
+        font-size:15px;
+    }
+
+    section.block{
+        padding:75px 20px;
+    }
+
+    .heading h2{
+        font-size:30px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">
+        <div class="logo-box">BS</div>
+        BLUE SINGLE
+    </div>
+
+    <div class="navlinks">
+        <a href="#features">امکانات</a>
+        <a href="#stats">آمار</a>
+        <a href="#codes">کدها</a>
+        <a href="#ranking">رتبه‌بندی</a>
+    </div>
+
+    <a class="login" href="/dashboard">
+        ورود
+    </a>
+
+</nav>
+
+
+<section class="hero">
+
+<div class="hero-content">
+
+    <div class="online">
+        <i></i>
+        BLUE CODE LAB // ONLINE
+    </div>
+
+    <h1>
+        CODE
+        <span>BEYOND</span>
+        LIMITS
+    </h1>
+
+    <p class="subtitle">
+        محیط اختصاصی BLUE SINGLE برای برنامه‌نویسی،
+        اشتراک‌گذاری کد، ساخت پروفایل،
+        رقابت و پیشرفت بین برنامه‌نویس‌ها.
+    </p>
+
+    <div class="actions">
+
+        <a class="btn primary" href="/dashboard">
+            ⚡ ورود به CODE LAB
+        </a>
+
+        <a class="btn secondary" href="#features">
+            مشاهده امکانات
+        </a>
+
+    </div>
+
+
+    <div class="terminal">
+
+        <div class="terminal-top">
+
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+
+            <div class="terminal-title">
+                blue@code-lab:~
+            </div>
+
+        </div>
+
+        <div class="terminal-body">
+
+            <div>
+                <span class="prompt">
+                    blue@lab
+                </span>:~$
+                <span class="command">
+                    ./initialize.sh
+                </span>
+            </div>
+
+            <div class="dim">
+                Loading BLUE CODE LAB...
+            </div>
+
+            <div class="prompt">
+                [OK] Authentication system
+            </div>
+
+            <div class="prompt">
+                [OK] Code database
+            </div>
+
+            <div class="prompt">
+                [OK] Ranking engine
+            </div>
+
+            <div class="prompt">
+                [OK] Media storage
+            </div>
+
+            <div class="command">
+                SYSTEM READY_
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<section class="block" id="features">
+
+<div class="heading">
+
+    <small>// SYSTEM FEATURES</small>
+
+    <h2>همه‌چیز برای کدنویسی</h2>
+
+    <p>
+        امکانات اصلی CODE LAB
+    </p>
+
+</div>
+
+
+<div class="grid">
+
+    <div class="card">
+        <div class="card-icon">💻</div>
+        <h3>Code Sharing</h3>
+        <p>
+            کدهایت را منتشر کن و در محیط اختصاصی
+            سایت ذخیره و مدیریت کن.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="card-icon">🏆</div>
+        <h3>Ranking System</h3>
+        <p>
+            با هر کد ۱۰ امتیاز بگیر و جایگاهت را
+            در رتبه‌بندی بالا ببر.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="card-icon">👤</div>
+        <h3>Personal Profile</h3>
+        <p>
+            نام، بیو، عکس پروفایل و فعالیت‌های
+            برنامه‌نویسی خودت را مدیریت کن.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="card-icon">📷</div>
+        <h3>Code Media</h3>
+        <p>
+            برای هر پروژه عکس یا ویدیو از نتیجه
+            اجرای کد اضافه کن.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="card-icon">🔎</div>
+        <h3>Code Search</h3>
+        <p>
+            بین پروژه‌ها و کدهای کاربران جستجو کن.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="card-icon">📊</div>
+        <h3>Statistics</h3>
+        <p>
+            امتیاز، تعداد کدها و رتبه خودت را
+            همیشه مشاهده کن.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="card-icon">📱</div>
+        <h3>Mobile First</h3>
+        <p>
+            طراحی شده برای اینکه روی موبایل
+            هم سریع و راحت باشد.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="card-icon">🛡️</div>
+        <h3>Secure Accounts</h3>
+        <p>
+            حساب کاربران با سیستم رمزنگاری
+            امن مدیریت می‌شود.
+        </p>
+    </div>
+
+</div>
+
+</section>
+
+
+<section class="block" id="stats">
+
+<div class="heading">
+
+    <small>// LIVE STATISTICS</small>
+
+    <h2>آمار سیستم</h2>
+
+</div>
+
+
+<div class="stats">
+
+    <div class="stat">
+        <strong>0</strong>
+        <span>کاربر</span>
+    </div>
+
+    <div class="stat">
+        <strong>0</strong>
+        <span>کد منتشر شده</span>
+    </div>
+
+    <div class="stat">
+        <strong>0</strong>
+        <span>امتیاز</span>
+    </div>
+
+    <div class="stat">
+        <strong>10</strong>
+        <span>امتیاز هر کد</span>
+    </div>
+
+</div>
+
+</section>
+
+
+<section class="block" id="codes">
+
+<div class="heading">
+
+    <small>// CODE TERMINAL</small>
+
+    <h2>محیط کدنویسی</h2>
+
+    <p>
+        نمونه‌ای از نمایش کد در CODE LAB
+    </p>
+
+</div>
+
+
+<div class="code-window">
+
+    <div class="code-header">
+        python // blue_single.py
+    </div>
+
+<pre>
+class BlueSingle:
+
+    def __init__(self):
+        self.status = "ONLINE"
+        self.mode = "CODE"
+
+    def start(self):
+        print("BLUE SINGLE")
+        print("CODE LAB READY")
+
+
+system = BlueSingle()
+system.start()
+</pre>
+
+</div>
+
+</section>
+
+
+<section class="block" id="ranking">
+
+<div class="heading">
+
+    <small>// TOP DEVELOPERS</small>
+
+    <h2>رتبه‌بندی</h2>
+
+    <p>
+        رتبه‌ها بر اساس امتیاز کاربران
+    </p>
+
+</div>
+
+
+<div class="rank-box">
+
+    <div class="rank">
+
+        <div class="rank-num">
+            1
+        </div>
+
+        <div class="rank-info">
+            <b>BLUE SINGLE</b>
+            <br>
+            <small>اولین کاربر</small>
+        </div>
+
+        <div class="points">
+            0 XP
+        </div>
+
+    </div>
+
+
+    <div class="rank">
+
+        <div class="rank-num">
+            2
+        </div>
+
+        <div class="rank-info">
+            <b>Developer</b>
+            <br>
+            <small>عضو CODE LAB</small>
+        </div>
+
+        <div class="points">
+            0 XP
+        </div>
+
+    </div>
+
+
+    <div class="rank">
+
+        <div class="rank-num">
+            3
+        </div>
+
+        <div class="rank-info">
+            <b>Coder</b>
+            <br>
+            <small>عضو CODE LAB</small>
+        </div>
+
+        <div class="points">
+            0 XP
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<footer>
+
+    <strong>BLUE SINGLE // CODE LAB</strong>
+
+    <br><br>
+
+    Code • Create • Share • Improve
+
+    <br><br>
+
+    © 2026 BLUE SINGLE
+
+</footer>
+
+</body>
+</html>

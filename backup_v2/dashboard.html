@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLUE SINGLE CODE LAB</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    background:#05080d;
+    color:#dcecff;
+    font-family:Arial,Tahoma,sans-serif;
+}
+button,input,textarea,select{
+    font:inherit;
+}
+button{
+    cursor:pointer;
+}
+.header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:#071019ee;
+    border-bottom:1px solid #12354d;
+    backdrop-filter:blur(12px);
+}
+.top{
+    max-width:1250px;
+    margin:auto;
+    padding:15px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+.logo{
+    color:#00d9ff;
+    font-weight:bold;
+    font-size:20px;
+    text-shadow:0 0 15px #00bfff;
+}
+.user-mini{
+    color:#7faac4;
+    font-size:13px;
+}
+.layout{
+    max-width:1250px;
+    margin:auto;
+    padding:20px;
+    display:grid;
+    grid-template-columns:230px 1fr;
+    gap:20px;
+}
+.sidebar{
+    background:#071019;
+    border:1px solid #12354d;
+    border-radius:18px;
+    padding:12px;
+    height:max-content;
+    position:sticky;
+    top:85px;
+}
+.navbtn{
+    width:100%;
+    border:1px solid transparent;
+    background:transparent;
+    color:#9db8ca;
+    padding:13px;
+    margin-bottom:5px;
+    border-radius:12px;
+    text-align:right;
+}
+.navbtn:hover,.navbtn.active{
+    background:#092031;
+    color:#00d9ff;
+    border-color:#14516c;
+}
+.main{
+    min-width:0;
+}
+.page{
+    display:none;
+}
+.page.active{
+    display:block;
+}
+.hero{
+    background:linear-gradient(135deg,#07141f,#061019);
+    border:1px solid #12415b;
+    border-radius:20px;
+    padding:25px;
+    margin-bottom:18px;
+}
+.hero h1{
+    margin:0 0 8px;
+    color:#00d9ff;
+}
+.hero p{
+    color:#86a6b9;
+}
+.grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+.card{
+    background:#071019;
+    border:1px solid #12354d;
+    border-radius:16px;
+    padding:17px;
+    margin-bottom:15px;
+}
+.stat{
+    font-size:28px;
+    font-weight:bold;
+    color:#00d9ff;
+}
+.muted{
+    color:#7894a7;
+    font-size:13px;
+}
+input,textarea,select{
+    width:100%;
+    background:#03070b;
+    color:#dcecff;
+    border:1px solid #16445d;
+    border-radius:10px;
+    padding:12px;
+    outline:none;
+    margin:5px 0;
+}
+input:focus,textarea:focus,select:focus{
+    border-color:#00bfff;
+}
+textarea{
+    min-height:130px;
+    resize:vertical;
+}
+.btn{
+    border:1px solid #11607e;
+    background:#082333;
+    color:#00d9ff;
+    border-radius:10px;
+    padding:10px 14px;
+    margin:4px;
+}
+.btn:hover{
+    background:#0b344b;
+}
+.btn.danger{
+    color:#ff6b7a;
+    border-color:#67313a;
+}
+.code-card{
+    overflow:hidden;
+}
+.media{
+    width:100%;
+    max-height:350px;
+    object-fit:contain;
+    background:#020509;
+    border-radius:12px;
+    margin-bottom:12px;
+}
+.code-head{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+}
+.code-title{
+    color:#00d9ff;
+    font-size:19px;
+    font-weight:bold;
+}
+.badge{
+    background:#0b2939;
+    color:#62dfff;
+    border:1px solid #15536e;
+    padding:4px 8px;
+    border-radius:20px;
+    font-size:12px;
+}
+pre{
+    direction:ltr;
+    text-align:left;
+    background:#020508;
+    border:1px solid #102b3a;
+    padding:15px;
+    border-radius:12px;
+    overflow:auto;
+    color:#bcefff;
+}
+.actions{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    margin-top:10px;
+}
+.comment{
+    border-top:1px solid #123044;
+    padding:10px 0;
+}
+.rank-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:14px;
+    border-bottom:1px solid #102b3a;
+}
+.rank-num{
+    width:35px;
+    color:#00d9ff;
+    font-weight:bold;
+}
+.avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#092d40;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#00d9ff;
+    font-weight:bold;
+    overflow:hidden;
+}
+.avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+.profile{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+.row{
+    display:flex;
+    gap:10px;
+}
+.row>*{
+    flex:1;
+}
+.notice{
+    padding:12px;
+    border:1px solid #16445d;
+    border-radius:10px;
+    margin:8px 0;
+    background:#07131c;
+}
+.empty{
+    text-align:center;
+    color:#688598;
+    padding:30px;
+}
+#toast{
+    position:fixed;
+    left:20px;
+    bottom:20px;
+    background:#071923;
+    border:1px solid #00a8d0;
+    color:#c9f7ff;
+    padding:12px 16px;
+    border-radius:12px;
+    display:none;
+    z-index:100;
+}
+@media(max-width:850px){
+    .layout{
+        grid-template-columns:1fr;
+    }
+    .sidebar{
+        position:static;
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+        gap:5px;
+    }
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+@media(max-width:500px){
+    .grid{
+        grid-template-columns:1fr 1fr;
+    }
+    .top{
+        padding:12px;
+    }
+    .layout{
+        padding:10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+<div class="top">
+    <div class="logo">⚡ BLUE SINGLE CODE LAB</div>
+    <div class="user-mini" id="topUser">در حال اتصال...</div>
+</div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+
+<button class="navbtn active" data-page="home">🏠 خانه</button>
+<button class="navbtn" data-page="codes">💻 کدها</button>
+<button class="navbtn" data-page="search">🔎 جستجو</button>
+<button class="navbtn" data-page="ranking">🏆 رتبه‌بندی</button>
+<button class="navbtn" data-page="profile">👤 پروفایل</button>
+<button class="navbtn" data-page="discussions">💬 Discussion</button>
+<button class="navbtn" data-page="issues">🐛 Issue</button>
+<button class="navbtn" data-page="submit">➕ ارسال کد</button>
+<button class="navbtn" data-page="notifications">🔔 اعلان‌ها</button>
+<button class="navbtn" data-page="learning">📚 آموزش</button>
+<button class="navbtn" onclick="logout()">🚪 خروج</button>
+
+</aside>
+
+<main class="main">
+
+<!-- HOME -->
+<section id="home" class="page active">
+
+<div class="hero">
+<h1>BLUE SINGLE CODE LAB</h1>
+<p>محیط اشتراک‌گذاری و یادگیری کدنویسی</p>
+<button class="btn" onclick="showPage('codes')">مشاهده کدها</button>
+<button class="btn" onclick="showPage('submit')">ارسال کد جدید</button>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<div class="stat" id="statUsers">0</div>
+<div class="muted">کاربران</div>
+</div>
+
+<div class="card">
+<div class="stat" id="statCodes">0</div>
+<div class="muted">کدها</div>
+</div>
+
+<div class="card">
+<div class="stat" id="statPoints">0</div>
+<div class="muted">امتیاز کل</div>
+</div>
+
+<div class="card">
+<div class="stat" id="statViews">0</div>
+<div class="muted">بازدید</div>
+</div>
+
+</div>
+
+<div class="card">
+<h2>آخرین کدها</h2>
+<div id="homeCodes"></div>
+</div>
+
+</section>
+
+
+<!-- CODES -->
+<section id="codes" class="page">
+
+<div class="hero">
+<h1>💻 کدها</h1>
+<p>کدهای ارسال‌شده توسط کاربران</p>
+</div>
+
+<div id="codesList"></div>
+
+</section>
+
+
+<!-- SEARCH -->
+<section id="search" class="page">
+
+<div class="hero">
+<h1>🔎 جستجوی کد</h1>
+
+<div class="row">
+<input id="searchInput" placeholder="مثلاً python یا login">
+<select id="languageFilter">
+<option value="">همه زبان‌ها</option>
+<option>Python</option>
+<option>JavaScript</option>
+<option>HTML</option>
+<option>CSS</option>
+<option>Java</option>
+<option>Kotlin</option>
+<option>C++</option>
+<option>PHP</option>
+</select>
+</div>
+
+<button class="btn" onclick="searchCodes()">جستجو</button>
+</div>
+
+<div id="searchResults"></div>
+
+</section>
+
+
+<!-- RANKING -->
+<section id="ranking" class="page">
+
+<div class="hero">
+<h1>🏆 رتبه‌بندی</h1>
+<p>رتبه کاربران بر اساس امتیاز</p>
+</div>
+
+<div class="card" id="rankingList"></div>
+
+</section>
+
+
+<!-- PROFILE -->
+<section id="profile" class="page">
+
+<div class="hero">
+<h1>👤 پروفایل من</h1>
+<div id="profileBox"></div>
+</div>
+
+<div class="card">
+
+<label>نام نمایشی</label>
+<input id="profileName">
+
+<label>بیو</label>
+<textarea id="profileBio"></textarea>
+
+<label>آدرس عکس پروفایل</label>
+<input id="profileAvatar">
+
+<button class="btn" onclick="saveProfile()">ذخیره پروفایل</button>
+
+</div>
+
+</section>
+
+
+<!-- DISCUSSIONS -->
+<section id="discussions" class="page">
+
+<div class="hero">
+<h1>💬 Discussions</h1>
+<p>گفتگو و بحث درباره برنامه‌نویسی</p>
+</div>
+
+<div class="card">
+
+<input id="discussionTitle" placeholder="عنوان بحث">
+
+<textarea id="discussionBody"
+placeholder="متن بحث..."></textarea>
+
+<button class="btn" onclick="createDiscussion()">
+ایجاد Discussion
+</button>
+
+</div>
+
+<div id="discussionList"></div>
+
+</section>
+
+
+<!-- ISSUES -->
+<section id="issues" class="page">
+
+<div class="hero">
+<h1>🐛 Issues</h1>
+<p>گزارش باگ و مشکل</p>
+</div>
+
+<div class="card">
+
+<input id="issueTitle" placeholder="عنوان مشکل">
+
+<textarea id="issueBody"
+placeholder="مشکل را توضیح بده..."></textarea>
+
+<button class="btn" onclick="createIssue()">
+ثبت Issue
+</button>
+
+</div>
+
+<div id="issueList"></div>
+
+</section>
+
+
+<!-- SUBMIT -->
+<section id="submit" class="page">
+
+<div class="hero">
+<h1>➕ ارسال کد</h1>
+<p>هر کد ثبت‌شده = ۱۰ امتیاز</p>
+</div>
+
+<div class="card">
+
+<input id="codeTitle" placeholder="عنوان کد">
+
+<select id="codeLanguage">
+<option>Python</option>
+<option>JavaScript</option>
+<option>HTML</option>
+<option>CSS</option>
+<option>Java</option>
+<option>Kotlin</option>
+<option>C++</option>
+<option>PHP</option>
+</select>
+
+<textarea id="codeDescription"
+placeholder="توضیح بده این کد چه کاری انجام می‌دهد"></textarea>
+
+<textarea id="codeText"
+placeholder="کد خودت را اینجا قرار بده..."></textarea>
+
+<label>عکس اختیاری</label>
+<input id="codeImage" type="file" accept="image/*">
+
+<label>ویدیو اختیاری</label>
+<input id="codeVideo" type="file" accept="video/*">
+
+<button class="btn" onclick="submitCode()">
+🚀 انتشار کد
+</button>
+
+</div>
+
+</section>
+
+
+<!-- NOTIFICATIONS -->
+<section id="notifications" class="page">
+
+<div class="hero">
+<h1>🔔 اعلان‌ها</h1>
+</div>
+
+<div id="notificationList"></div>
+
+</section>
+
+
+<!-- LEARNING -->
+<section id="learning" class="page">
+
+<div class="hero">
+<h1>📚 BLUE LEARNING</h1>
+<p>مسیر ساده یادگیری برنامه‌نویسی</p>
+</div>
+
+<div class="card">
+<h2>🐍 Python</h2>
+<p class="muted">
+متغیرها، شرط‌ها، حلقه‌ها، تابع‌ها و پروژه‌های ساده
+</p>
+<button class="btn"
+onclick="alert('درس Python به‌زودی کامل‌تر می‌شود')">
+شروع درس
+</button>
+</div>
+
+<div class="card">
+<h2>🌐 HTML</h2>
+<p class="muted">
+ساختار صفحات وب و ساخت سایت
+</p>
+<button class="btn"
+onclick="alert('درس HTML به‌زودی کامل‌تر می‌شود')">
+شروع درس
+</button>
+</div>
+
+<div class="card">
+<h2>🎨 CSS</h2>
+<p class="muted">
+طراحی ظاهر سایت
+</p>
+<button class="btn"
+onclick="alert('درس CSS به‌زودی کامل‌تر می‌شود')">
+شروع درس
+</button>
+</div>
+
+<div class="card">
+<h2>⚡ JavaScript</h2>
+<p class="muted">
+تعامل و منطق صفحات وب
+</p>
+<button class="btn"
+onclick="alert('درس JavaScript به‌زودی کامل‌تر می‌شود')">
+شروع درس
+</button>
+</div>
+
+</section>
+
+</main>
+</div>
+
+<div id="toast"></div>
+
+<script>
+
+let ME = null;
+let ALL_CODES = [];
+
+
+/* =========================
+   BASIC
+========================= */
+
+function toast(text){
+    const el=document.getElementById("toast");
+    el.textContent=text;
+    el.style.display="block";
+
+    clearTimeout(window.toastTimer);
+
+    window.toastTimer=setTimeout(()=>{
+        el.style.display="none";
+    },2500);
+}
+
+
+async function api(url, options={}){
+    const res=await fetch(url,options);
+
+    let data={};
+
+    try{
+        data=await res.json();
+    }catch(e){}
+
+    if(!res.ok){
+        throw new Error(data.error || "خطا در ارتباط با سرور");
+    }
+
+    return data;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+document.querySelectorAll(".navbtn[data-page]").forEach(btn=>{
+
+    btn.addEventListener("click",()=>{
+
+        showPage(btn.dataset.page);
+
+    });
+
+});
+
+
+function showPage(name){
+
+    document.querySelectorAll(".page").forEach(p=>{
+        p.classList.remove("active");
+    });
+
+    const page=document.getElementById(name);
+
+    if(page){
+        page.classList.add("active");
+    }
+
+    document.querySelectorAll(".navbtn").forEach(btn=>{
+        btn.classList.remove("active");
+
+        if(btn.dataset.page===name){
+            btn.classList.add("active");
+        }
+    });
+
+
+    if(name==="codes") loadCodes();
+    if(name==="ranking") loadRanking();
+    if(name==="profile") renderProfile();
+    if(name==="discussions") loadDiscussions();
+    if(name==="issues") loadIssues();
+    if(name==="notifications") loadNotifications();
+
+}
+
+
+/* =========================
+   ME
+========================= */
+
+async function loadMe(){
+
+    try{
+
+        ME=await api("/api/me");
+
+        if(!ME){
+            location.href="/";
+            return;
+        }
+
+        document.getElementById("topUser").textContent=
+            ME.username || ME.name || "User";
+
+        renderProfile();
+
+    }catch(e){
+
+        toast(e.message);
+
+        setTimeout(()=>{
+            location.href="/";
+        },1000);
+
+    }
+
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+async function loadStats(){
+
+    try{
+
+        const s=await api("/api/stats");
+
+        document.getElementById("statUsers").textContent=
+            s.users ?? 0;
+
+        document.getElementById("statCodes").textContent=
+            s.codes ?? 0;
+
+        document.getElementById("statPoints").textContent=
+            s.points ?? 0;
+
+        document.getElementById("statViews").textContent=
+            s.views ?? 0;
+
+    }catch(e){
+
+        console.log(e);
+
+    }
+
+}
+
+
+/* =========================
+   CODES
+========================= */
+
+async function loadCodes(){
+
+    const box=document.getElementById("codesList");
+
+    box.innerHTML='<div class="empty">در حال دریافت کدها...</div>';
+
+    try{
+
+        const data=await api("/api/codes");
+
+        ALL_CODES=Array.isArray(data)
+            ? data
+            : (data.codes || []);
+
+        renderCodes(ALL_CODES,box);
+
+        renderCodes(
+            ALL_CODES.slice(0,3),
+            document.getElementById("homeCodes")
+        );
+
+    }catch(e){
+
+        box.innerHTML=
+            '<div class="empty">'+e.message+'</div>';
+
+    }
+
+}
+
+
+function renderCodes(codes,box){
+
+    if(!codes.length){
+
+        box.innerHTML=
+            '<div class="empty">هنوز کدی ثبت نشده.</div>';
+
+        return;
+    }
+
+    box.innerHTML="";
+
+    codes.forEach(code=>{
+
+        const card=document.createElement("div");
+
+        card.className="card code-card";
+
+        let media="";
+
+        if(code.image){
+
+            media+=`
+            <img class="media"
+            src="${esc(code.image)}"
+            alt="code image">
+            `;
+
+        }
+
+        if(code.video){
+
+            media+=`
+            <video class="media"
+            controls
+            src="${esc(code.video)}">
+            </video>
+            `;
+
+        }
+
+
+        card.innerHTML=`
+
+        ${media}
+
+        <div class="code-head">
+
+            <div>
+
+                <div class="code-title">
+                    ${esc(code.title || "بدون عنوان")}
+                </div>
+
+                <div class="muted">
+                    ${esc(code.username || code.author || "Unknown")}
+                </div>
+
+            </div>
+
+            <span class="badge">
+                ${esc(code.language || "Code")}
+            </span>
+
+        </div>
+
+        <p class="muted">
+            ${esc(code.description || "")}
+        </p>
+
+        <pre>${esc(code.code || "")}</pre>
+
+        <div class="actions">
+
+            <button class="btn"
+            onclick="copyCode(${JSON.stringify(code.code || "")})">
+            📋 کپی
+            </button>
+
+            <button class="btn"
+            onclick="likeCode('${escAttr(code.id)}')">
+            ❤️ ${code.likes || 0}
+            </button>
+
+            <button class="btn"
+            onclick="toggleComments('${escAttr(code.id)}')">
+            💬 ${code.comments_count || 0}
+            </button>
+
+        </div>
+
+        <div id="comments-${escAttr(code.id)}"></div>
+
+        `;
+
+        box.appendChild(card);
+
+    });
+
+}
+
+
+async function likeCode(id){
+
+    try{
+
+        await api(
+            "/api/codes/"+encodeURIComponent(id)+"/like",
+            {method:"POST"}
+        );
+
+        toast("❤️ لایک ثبت شد");
+
+        loadCodes();
+        loadStats();
+
+    }catch(e){
+
+        toast(e.message);
+
+    }
+
+}
+
+
+async function toggleComments(id){
+
+    const box=document.getElementById("comments-"+id);
+
+    if(!box) return;
+
+    if(box.dataset.loaded==="1"){
+
+        box.innerHTML="";
+        box.dataset.loaded="0";
+        return;
+
+    }
+
+    box.innerHTML='<div class="muted">در حال دریافت...</div>';
+
+    try{
+
+        const data=await api(
+            "/api/codes/"+encodeURIComponent(id)+"/comments"
+        );
+
+        const comments=
+            Array.isArray(data)
+            ? data
+            : (data.comments || []);
+
+        box.innerHTML=`
+
+        <div class="card">
+
+        <input
+        id="comment-${escAttr(id)}"
+        placeholder="نظر خودت را بنویس...">
+
+        <button class="btn"
+        onclick="addComment('${escAttr(id)}')">
+        ارسال نظر
+        </button>
+
+        <div id="commentList-${escAttr(id)}"></div>
+
+        </div>
+
+        `;
+
+        const list=document.getElementById(
+            "commentList-"+id
+        );
+
+        if(!comments.length){
+
+            list.innerHTML=
+                '<div class="muted">هنوز نظری نیست.</div>';
+
+        }else{
+
+            comments.forEach(c=>{
+
+                const d=document.createElement("div");
+
+                d.className="comment";
+
+                d.innerHTML=`
+                    <b>${esc(c.username || c.author || "User")}</b>
+                    <div>${esc(c.text || c.comment || "")}</div>
+                `;
+
+                list.appendChild(d);
+
+            });
+
+        }
+
+        box.dataset.loaded="1";
+
+    }catch(e){
+
+        box.innerHTML=
+            '<div class="muted">'+e.message+'</div>';
+
+    }
+
+}
+
+
+async function addComment(id){
+
+    const input=document.getElementById("comment-"+id);
+
+    if(!input || !input.value.trim()){
+
+        toast("متن کامنت را بنویس");
+
+        return;
+
+    }
+
+    try{
+
+        await api(
+            "/api/codes/"+encodeURIComponent(id)+"/comments",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    text:input.value.trim()
+                })
+            }
+        );
+
+        toast("💬 کامنت ثبت شد");
+
+        toggleComments(id);
+        setTimeout(()=>toggleComments(id),100);
+
+    }catch(e){
+
+        toast(e.message);
+
+    }
+
+}
+
+
+async function copyCode(code){
+
+    try{
+
+        await navigator.clipboard.writeText(code);
+
+        toast("📋 کد کپی شد");
+
+    }catch(e){
+
+        toast("کپی انجام نشد");
+
+    }
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+async function searchCodes(){
+
+    const q=document.getElementById("searchInput").value.trim();
+
+    const language=
+        document.getElementById("languageFilter").value;
+
+    let url="/api/codes?";
+
+    if(q){
+        url+="q="+encodeURIComponent(q)+"&";
+    }
+
+    if(language){
+        url+="language="+encodeURIComponent(language);
+    }
+
+    const box=document.getElementById("searchResults");
+
+    box.innerHTML=
+        '<div class="empty">در حال جستجو...</div>';
+
+    try{
+
+        const data=await api(url);
+
+        const results=
+            Array.isArray(data)
+            ? data
+            : (data.codes || []);
+
+        renderCodes(results,box);
+
+    }catch(e){
+
+        box.innerHTML=
+            '<div class="empty">'+e.message+'</div>';
+
+    }
+
+}
+
+
+/* =========================
+   RANKING
+========================= */
+
+async function loadRanking(){
+
+    const box=document.getElementById("rankingList");
+
+    box.innerHTML=
+        '<div class="empty">در حال دریافت رتبه‌بندی...</div>';
+
+    try{
+
+        const data=await api("/api/ranking");
+
+        const rows=
+            Array.isArray(data)
+            ? data
+            : (data.ranking || []);
+
+        if(!rows.length){
+
+            box.innerHTML=
+                '<div class="empty">هنوز رتبه‌ای وجود ندارد.</div>';
+
+            return;
+
+        }
+
+        box.innerHTML="";
+
+        rows.forEach((u,i)=>{
+
+            const row=document.createElement("div");
+
+            row.className="rank-row";
+
+            row.innerHTML=`
+
+                <div class="rank-num">
+                    #${i+1}
+                </div>
+
+                <div class="profile">
+
+                    <div class="avatar">
+                        ${u.avatar
+                        ? `<img src="${esc(u.avatar)}">`
+                        : "👤"}
+                    </div>
+
+                    <div>
+                        <b>${esc(u.username || u.name || "User")}</b>
+                        <div class="muted">
+                            ${u.codes || 0} کد
+                        </div>
+                    </div>
+
+                </div>
+
+                <div>
+                    <b>${u.points || 0}</b>
+                    <span class="muted"> امتیاز</span>
+                </div>
+
+            `;
+
+            box.appendChild(row);
+
+        });
+
+    }catch(e){
+
+        box.innerHTML=
+            '<div class="empty">'+e.message+'</div>';
+
+    }
+
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+function renderProfile(){
+
+    if(!ME) return;
+
+    document.getElementById("profileName").value=
+        ME.name || ME.display_name || ME.username || "";
+
+    document.getElementById("profileBio").value=
+        ME.bio || "";
+
+    document.getElementById("profileAvatar").value=
+        ME.avatar || "";
+
+    document.getElementById("profileBox").innerHTML=`
+
+        <div class="profile">
+
+            <div class="avatar">
+                ${
+                    ME.avatar
+                    ? `<img src="${esc(ME.avatar)}">`
+                    : "👤"
+                }
+            </div>
+
+            <div>
+
+                <h2>
+                    ${esc(ME.name || ME.username || "User")}
+                </h2>
+
+                <div class="muted">
+                    @${esc(ME.username || "")}
+                </div>
+
+                <div class="muted">
+                    ${ME.points || 0} امتیاز
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+async function saveProfile(){
+
+    const payload={
+        name:document.getElementById("profileName").value.trim(),
+        bio:document.getElementById("profileBio").value.trim(),
+        avatar:document.getElementById("profileAvatar").value.trim()
+    };
+
+    try{
+
+        ME=await api(
+            "/api/profile",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(payload)
+            }
+        );
+
+        toast("✅ پروفایل ذخیره شد");
+
+        renderProfile();
+
+        document.getElementById("topUser").textContent=
+            ME.username || ME.name || "User";
+
+    }catch(e){
+
+        toast(e.message);
+
+    }
+
+}
+
+
+/* =========================
+   DISCUSSIONS
+========================= */
+
+async function loadDiscussions(){
+
+    const box=document.getElementById("discussionList");
+
+    box.innerHTML=
+        '<div class="empty">در حال دریافت Discussionها...</div>';
+
+    try{
+
+        const data=await api("/api/discussions");
+
+        const list=
+            Array.isArray(data)
+            ? data
+            : (data.discussions || []);
+
+        box.innerHTML="";
+
+        if(!list.length){
+
+            box.innerHTML=
+                '<div class="empty">هنوز Discussion وجود ندارد.</div>';
+
+            return;
+
+        }
+
+        list.forEach(d=>{
+
+            const el=document.createElement("div");
+
+            el.className="card";
+
+            el.innerHTML=`
+
+                <h3>${esc(d.title || "بدون عنوان")}</h3>
+
+                <p>${esc(d.body || d.text || "")}</p>
+
+                <div class="muted">
+                    توسط ${esc(d.username || d.author || "User")}
+                </div>
+
+            `;
+
+            box.appendChild(el);
+
+        });
+
+    }catch(e){
+
+        box.innerHTML=
+            '<div class="empty">'+e.message+'</div>';
+
+    }
+
+}
+
+
+async function createDiscussion(){
+
+    const title=
+        document.getElementById("discussionTitle").value.trim();
+
+    const body=
+        document.getElementById("discussionBody").value.trim();
+
+    if(!title || !body){
+
+        toast("عنوان و متن را کامل کن");
+
+        return;
+
+    }
+
+    try{
+
+        await api(
+            "/api/discussions",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    title:title,
+                    body:body
+                })
+            }
+        );
+
+        document.getElementById("discussionTitle").value="";
+        document.getElementById("discussionBody").value="";
+
+        toast("💬 Discussion ساخته شد");
+
+        loadDiscussions();
+
+    }catch(e){
+
+        toast(e.message);
+
+    }
+
+}
+
+
+/* =========================
+   ISSUES
+========================= */
+
+async function loadIssues(){
+
+    const box=document.getElementById("issueList");
+
+    box.innerHTML=
+        '<div class="empty">در حال دریافت Issueها...</div>';
+
+    try{
+
+        const data=await api("/api/issues");
+
+        const list=
+            Array.isArray(data)
+            ? data
+            : (data.issues || []);
+
+        box.innerHTML="";
+
+        if(!list.length){
+
+            box.innerHTML=
+                '<div class="empty">هنوز Issue وجود ندارد.</div>';
+
+            return;
+
+        }
+
+        list.forEach(issue=>{
+
+            const el=document.createElement("div");
+
+            el.className="card";
+
+            el.innerHTML=`
+
+                <h3>🐛 ${esc(issue.title || "Issue")}</h3>
+
+                <p>${esc(issue.body || issue.text || "")}</p>
+
+                <div class="muted">
+                    توسط ${esc(issue.username || issue.author || "User")}
+                </div>
+
+            `;
+
+            box.appendChild(el);
+
+        });
+
+    }catch(e){
+
+        box.innerHTML=
+            '<div class="empty">'+e.message+'</div>';
+
+    }
+
+}
+
+
+async function createIssue(){
+
+    const title=
+        document.getElementById("issueTitle").value.trim();
+
+    const body=
+        document.getElementById("issueBody").value.trim();
+
+    if(!title || !body){
+
+        toast("عنوان و متن را کامل کن");
+
+        return;
+
+    }
+
+    try{
+
+        await api(
+            "/api/issues",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    title:title,
+                    body:body
+                })
+            }
+        );
+
+        document.getElementById("issueTitle").value="";
+        document.getElementById("issueBody").value="";
+
+        toast("🐛 Issue ثبت شد");
+
+        loadIssues();
+
+    }catch(e){
+
+        toast(e.message);
+
+    }
+
+}
+
+
+/* =========================
+   SUBMIT CODE
+========================= */
+
+async function submitCode(){
+
+    const title=
+        document.getElementById("codeTitle").value.trim();
+
+    const language=
+        document.getElementById("codeLanguage").value;
+
+    const description=
+        document.getElementById("codeDescription").value.trim();
+
+    const code=
+        document.getElementById("codeText").value;
+
+    const image=
+        document.getElementById("codeImage").files[0];
+
+    const video=
+        document.getElementById("codeVideo").files[0];
+
+
+    if(!title || !code){
+
+        toast("عنوان و کد را وارد کن");
+
+        return;
+
+    }
+
+
+    const form=new FormData();
+
+    form.append("title",title);
+    form.append("language",language);
+    form.append("description",description);
+    form.append("code",code);
+
+    if(image){
+        form.append("image",image);
+    }
+
+    if(video){
+        form.append("video",video);
+    }
+
+
+    try{
+
+        await api(
+            "/api/codes",
+            {
+                method:"POST",
+                body:form
+            }
+        );
+
+        toast("🚀 کد منتشر شد +10 امتیاز");
+
+        document.getElementById("codeTitle").value="";
+        document.getElementById("codeDescription").value="";
+        document.getElementById("codeText").value="";
+        document.getElementById("codeImage").value="";
+        document.getElementById("codeVideo").value="";
+
+        loadStats();
+        loadCodes();
+        showPage("codes");
+
+    }catch(e){
+
+        toast(e.message);
+
+    }
+
+}
+
+
+/* =========================
+   NOTIFICATIONS
+========================= */
+
+async function loadNotifications(){
+
+    const box=document.getElementById("notificationList");
+
+    box.innerHTML=
+        '<div class="empty">در حال دریافت اعلان‌ها...</div>';
+
+    try{
+
+        const data=await api("/api/notifications");
+
+        const list=
+            Array.isArray(data)
+            ? data
+            : (data.notifications || []);
+
+        box.innerHTML="";
+
+        if(!list.length){
+
+            box.innerHTML=
+                '<div class="empty">اعلان جدیدی نداری 🔕</div>';
+
+            return;
+
+        }
+
+        list.forEach(n=>{
+
+            const el=document.createElement("div");
+
+            el.className="notice";
+
+            el.innerHTML=`
+                🔔 ${esc(n.text || n.message || "اعلان جدید")}
+            `;
+
+            box.appendChild(el);
+
+        });
+
+        try{
+
+            await api(
+                "/api/notifications/read",
+                {method:"POST"}
+            );
+
+        }catch(e){}
+
+    }catch(e){
+
+        box.innerHTML=
+            '<div class="empty">'+e.message+'</div>';
+
+    }
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+async function logout(){
+
+    try{
+
+        await api(
+            "/api/logout",
+            {method:"POST"}
+        );
+
+        location.href="/";
+
+    }catch(e){
+
+        toast(e.message);
+
+    }
+
+}
+
+
+/* =========================
+   SECURITY HELPERS
+========================= */
+
+function esc(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+function escAttr(value){
+
+    return String(value ?? "")
+        .replace(/\\/g,"\\\\")
+        .replace(/'/g,"\\'")
+        .replace(/"/g,"&quot;");
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+(async function(){
+
+    await loadMe();
+    await loadStats();
+    await loadCodes();
+
+})();
+
+</script>
+
+</body>
+</html>

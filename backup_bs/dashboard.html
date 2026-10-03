@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BLUE SINGLE CODE LAB</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+background:#030609;
+color:#eaffff;
+font-family:Arial,Tahoma,sans-serif;
+}
+
+header{
+position:sticky;
+top:0;
+z-index:10;
+padding:15px;
+background:rgba(3,7,10,.94);
+backdrop-filter:blur(12px);
+border-bottom:1px solid #103541;
+}
+
+.brand{
+color:#00eaff;
+font-weight:bold;
+font-size:18px;
+text-shadow:0 0 12px #00eaff;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+padding:15px;
+padding-bottom:90px;
+}
+
+.hero{
+padding:20px;
+border:1px solid #123b47;
+border-radius:20px;
+background:
+radial-gradient(circle at top right,#08313b,#071016 55%,#04080b);
+box-shadow:0 0 30px rgba(0,220,255,.08);
+}
+
+.user{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.avatar{
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#06252e;
+border:2px solid #00d9f5;
+color:#00eaff;
+font-size:22px;
+font-weight:bold;
+}
+
+.name{
+font-size:19px;
+font-weight:bold;
+}
+
+.muted{
+color:#66838c;
+font-size:12px;
+}
+
+.level{
+margin-top:18px;
+height:8px;
+background:#0a1b20;
+border-radius:10px;
+overflow:hidden;
+}
+
+.level div{
+height:100%;
+width:35%;
+background:#00d9f5;
+box-shadow:0 0 12px #00d9f5;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px;
+margin-top:15px;
+}
+
+.stat{
+background:#071116;
+border:1px solid #12323c;
+padding:12px 5px;
+border-radius:12px;
+text-align:center;
+}
+
+.stat b{
+display:block;
+color:#00eaff;
+font-size:18px;
+}
+
+.stat span{
+font-size:10px;
+color:#67828b;
+}
+
+nav{
+display:flex;
+gap:7px;
+overflow-x:auto;
+margin:15px 0;
+padding-bottom:5px;
+}
+
+nav button{
+white-space:nowrap;
+border:1px solid #123842;
+background:#071116;
+color:#7d9ba3;
+padding:10px 14px;
+border-radius:10px;
+}
+
+nav button.active{
+background:#00cfe9;
+color:#001014;
+}
+
+.page{
+display:none;
+}
+
+.page.active{
+display:block;
+}
+
+.card{
+background:#071015;
+border:1px solid #12333d;
+border-radius:16px;
+padding:15px;
+margin-bottom:12px;
+}
+
+h2{
+font-size:18px;
+margin-top:0;
+color:#00eaff;
+}
+
+input,textarea,select{
+width:100%;
+background:#03070a;
+color:white;
+border:1px solid #173b46;
+border-radius:10px;
+padding:12px;
+margin:6px 0;
+outline:none;
+}
+
+textarea{
+min-height:120px;
+resize:vertical;
+}
+
+button{
+cursor:pointer;
+}
+
+.primary{
+width:100%;
+padding:13px;
+border:0;
+border-radius:10px;
+background:#00d9f5;
+color:#001014;
+font-weight:bold;
+margin-top:8px;
+}
+
+.code{
+direction:ltr;
+text-align:left;
+white-space:pre-wrap;
+overflow:auto;
+background:#020508;
+border:1px solid #102c35;
+padding:15px;
+border-radius:12px;
+color:#b7f8ff;
+font-family:monospace;
+font-size:12px;
+}
+
+.codehead{
+display:flex;
+justify-content:space-between;
+gap:10px;
+align-items:center;
+}
+
+.badge{
+display:inline-block;
+padding:5px 8px;
+border-radius:8px;
+background:#09262e;
+color:#00d9f5;
+font-size:10px;
+}
+
+.actions{
+display:flex;
+gap:7px;
+margin-top:10px;
+}
+
+.actions button{
+flex:1;
+padding:10px;
+border:1px solid #173a45;
+background:#061015;
+color:#a4c5cd;
+border-radius:9px;
+}
+
+.rank{
+display:flex;
+align-items:center;
+gap:10px;
+padding:12px;
+border-bottom:1px solid #102830;
+}
+
+.ranknum{
+width:35px;
+height:35px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#09242d;
+color:#00eaff;
+font-weight:bold;
+}
+
+.search{
+display:flex;
+gap:7px;
+}
+
+.search input{
+flex:1;
+}
+
+.online{
+color:#45e78d;
+font-size:11px;
+}
+
+.bottom{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+z-index:20;
+display:flex;
+justify-content:center;
+background:rgba(3,7,10,.95);
+border-top:1px solid #12333d;
+}
+
+.bottom button{
+flex:1;
+max-width:150px;
+padding:13px 5px;
+background:none;
+border:0;
+color:#67848c;
+font-size:11px;
+}
+
+.bottom button.active{
+color:#00eaff;
+}
+
+.notice{
+padding:10px;
+border-radius:10px;
+background:#071c22;
+border:1px solid #123a43;
+margin-bottom:8px;
+font-size:12px;
+}
+
+@media(max-width:600px){
+.stats{
+grid-template-columns:repeat(2,1fr);
+}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="brand">⚡ BLUE SINGLE CODE LAB</div>
+</header>
+
+<div class="container">
+
+<section class="hero">
+
+<div class="user">
+
+<div class="avatar" id="avatar">B</div>
+
+<div>
+<div class="name" id="username">Loading...</div>
+<div class="muted">
+LEVEL <span id="level">1</span>
+•
+<span class="online">● ONLINE</span>
+</div>
+</div>
+
+</div>
+
+<div class="level">
+<div id="levelbar"></div>
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<b id="xp">0</b>
+<span>XP</span>
+</div>
+
+<div class="stat">
+<b id="codes">0</b>
+<span>CODES</span>
+</div>
+
+<div class="stat">
+<b id="likes">0</b>
+<span>LIKES</span>
+</div>
+
+<div class="stat">
+<b id="rank">#-</b>
+<span>RANK</span>
+</div>
+
+</div>
+
+</section>
+
+<nav>
+<button class="active" onclick="page('home',this)">خانه</button>
+<button onclick="page('codes',this)">کدها</button>
+<button onclick="page('search',this)">جستجو</button>
+<button onclick="page('ranking',this)">رتبه‌بندی</button>
+<button onclick="page('profile',this)">پروفایل</button>
+<button onclick="page('community',this)">Community</button>
+<button onclick="page('notify',this)">اعلان‌ها</button>
+</nav>
+
+<section id="home" class="page active">
+
+<div class="card">
+<h2>🔥 خوش اومدی</h2>
+<p class="muted">
+اینجا محل اشتراک کد، یادگیری و رقابت برنامه‌نویس‌هاست.
+</p>
+</div>
+
+<div class="card">
+<h2>📊 آمار CODE LAB</h2>
+<p>👥 کاربران: <b id="totalUsers">0</b></p>
+<p>💻 کدها: <b id="totalCodes">0</b></p>
+<p>👁 بازدید: <b id="totalViews">0</b></p>
+<p>⭐ مجموع XP: <b id="totalPoints">0</b></p>
+</div>
+
+</section>
+
+<section id="codes" class="page">
+
+<div class="card">
+<h2>💻 ارسال کد</h2>
+
+<input id="codeTitle" placeholder="عنوان پروژه">
+
+<select id="codeLanguage">
+<option>Python</option>
+<option>JavaScript</option>
+<option>HTML</option>
+<option>CSS</option>
+<option>Java</option>
+<option>C++</option>
+<option>PHP</option>
+<option>Other</option>
+</select>
+
+<textarea id="codeDescription" placeholder="توضیح پروژه"></textarea>
+
+<textarea id="codeText" placeholder="کدت رو اینجا قرار بده..."></textarea>
+
+<button class="primary" onclick="submitCode()">
+🚀 انتشار کد +10 XP
+</button>
+</div>
+
+<div id="codeList"></div>
+
+</section>
+
+<section id="search" class="page">
+
+<div class="card">
+<h2>🔎 جستجوی کد</h2>
+
+<div class="search">
+<input id="searchInput" placeholder="Python, Bot, Game...">
+<button onclick="searchCodes()">جستجو</button>
+</div>
+
+</div>
+
+<div id="searchResults"></div>
+
+</section>
+
+<section id="ranking" class="page">
+
+<div class="card">
+<h2>🏆 GLOBAL RANKING</h2>
+<div id="rankingList"></div>
+</div>
+
+</section>
+
+<section id="profile" class="page">
+
+<div class="card">
+
+<h2>👤 پروفایل</h2>
+
+<input id="profileName" placeholder="نام">
+
+<textarea id="profileBio" placeholder="Bio"></textarea>
+
+<button class="primary" onclick="saveProfile()">
+💾 ذخیره پروفایل
+</button>
+
+</div>
+
+</section>
+
+<section id="community" class="page">
+
+<div class="card">
+
+<h2>💬 Discussion</h2>
+
+<input id="discussionTitle" placeholder="عنوان بحث">
+
+<textarea id="discussionBody" placeholder="متن بحث"></textarea>
+
+<button class="primary" onclick="createDiscussion()">
+ارسال Discussion
+</button>
+
+</div>
+
+<div id="discussionList"></div>
+
+<div class="card">
+
+<h2>🐛 Issue</h2>
+
+<input id="issueTitle" placeholder="عنوان مشکل">
+
+<textarea id="issueBody" placeholder="توضیح مشکل"></textarea>
+
+<button class="primary" onclick="createIssue()">
+ثبت Issue
+</button>
+
+</div>
+
+<div id="issueList"></div>
+
+</section>
+
+<section id="notify" class="page">
+
+<div class="card">
+
+<h2>🔔 Notifications</h2>
+
+<div id="notifications"></div>
+
+<button class="primary" onclick="readNotifications()">
+✓ علامت‌گذاری به‌عنوان خوانده‌شده
+</button>
+
+</div>
+
+</section>
+
+</div>
+
+<div class="bottom">
+
+<button onclick="page('home')">⌂ خانه</button>
+<button onclick="page('codes')">⌘ کد</button>
+<button onclick="page('ranking')">♛ رتبه</button>
+<button onclick="page('profile')">● من</button>
+<button onclick="logout()">خروج</button>
+
+</div>
+
+<script>
+
+let ME=null;
+
+async function api(url,opt={}){
+const r=await fetch(url,{
+credentials:"same-origin",
+...opt
+});
+
+let d={};
+
+try{
+d=await r.json();
+}catch{}
+
+if(!r.ok)
+throw new Error(d.error||"خطای سرور");
+
+return d;
+}
+
+function page(id,btn){
+
+document.querySelectorAll(".page")
+.forEach(x=>x.classList.remove("active"));
+
+document.getElementById(id)
+.classList.add("active");
+
+if(btn){
+document.querySelectorAll("nav button")
+.forEach(x=>x.classList.remove("active"));
+
+btn.classList.add("active");
+}
+
+if(id==="codes") loadCodes();
+if(id==="ranking") loadRanking();
+if(id==="community") loadCommunity();
+if(id==="notify") loadNotifications();
+}
+
+async function loadMe(){
+
+try{
+
+const d=await api("/api/me");
+
+ME=d.user;
+
+document.getElementById("username").textContent=
+ME.name || ME.username;
+
+document.getElementById("avatar").textContent=
+(ME.name||ME.username||"B")[0].toUpperCase();
+
+document.getElementById("level").textContent=ME.level;
+document.getElementById("xp").textContent=ME.xp;
+document.getElementById("codes").textContent=ME.codes;
+document.getElementById("likes").textContent=ME.likes;
+
+document.getElementById("profileName").value=ME.name||"";
+document.getElementById("profileBio").value=ME.bio||"";
+
+let percent=ME.xp%100;
+document.getElementById("levelbar").style.width=
+Math.max(5,percent)+"%";
+
+}catch(e){
+
+location.href="/";
+}
+}
+
+async function loadStats(){
+
+const d=await api("/api/stats");
+
+document.getElementById("totalUsers").textContent=d.users;
+document.getElementById("totalCodes").textContent=d.codes;
+document.getElementById("totalViews").textContent=d.views;
+document.getElementById("totalPoints").textContent=d.points;
+}
+
+function codeCard(c){
+
+return `
+<div class="card">
+
+<div class="codehead">
+<div>
+<h2>${escapeHtml(c.title)}</h2>
+<span class="badge">${escapeHtml(c.language)}</span>
+</div>
+
+<span class="muted">@${escapeHtml(c.username||"user")}</span>
+</div>
+
+<p class="muted">${escapeHtml(c.description||"")}</p>
+
+<div class="code">${escapeHtml(c.code)}</div>
+
+<div class="actions">
+<button onclick="likeCode('${c.id}')">
+❤️ ${c.likes||0}
+</button>
+
+<button onclick="commentCode('${c.id}')">
+💬 ${c.comments||0}
+</button>
+
+<button onclick="copyCode(${JSON.stringify(c.code)})">
+📋 Copy
+</button>
+</div>
+
+</div>
+`;
+}
+
+async function loadCodes(){
+
+const d=await api("/api/codes");
+
+document.getElementById("codeList").innerHTML=
+d.codes.length
+?d.codes.map(codeCard).join("")
+:`<div class="card">هنوز کدی ارسال نشده.</div>`;
+}
+
+async function submitCode(){
+
+const title=document.getElementById("codeTitle").value.trim();
+const language=document.getElementById("codeLanguage").value;
+const description=document.getElementById("codeDescription").value.trim();
+const code=document.getElementById("codeText").value.trim();
+
+if(!title||!code){
+alert("عنوان و کد را وارد کن");
+return;
+}
+
+const fd=new FormData();
+
+fd.append("title",title);
+fd.append("language",language);
+fd.append("description",description);
+fd.append("code",code);
+
+const d=await api("/api/codes",{
+method:"POST",
+body:fd
+});
+
+alert(d.message||"کد منتشر شد");
+
+document.getElementById("codeTitle").value="";
+document.getElementById("codeDescription").value="";
+document.getElementById("codeText").value="";
+
+await loadMe();
+await loadCodes();
+await loadStats();
+}
+
+async function likeCode(id){
+
+try{
+await api("/api/codes/"+id+"/like",{
+method:"POST"
+});
+
+loadCodes();
+loadMe();
+
+}catch(e){
+alert(e.message);
+}
+}
+
+async function commentCode(id){
+
+const text=prompt("کامنت:");
+
+if(!text)return;
+
+await api("/api/codes/"+id+"/comments",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({text})
+});
+
+loadCodes();
+}
+
+async function copyCode(text){
+
+try{
+await navigator.clipboard.writeText(text);
+alert("کد کپی شد ✓");
+}catch{
+alert("کپی خودکار توسط مرورگر اجازه داده نشد");
+}
+}
+
+async function searchCodes(){
+
+const q=document.getElementById("searchInput")
+.value.trim();
+
+if(!q)return;
+
+const d=await api(
+"/api/search?q="+encodeURIComponent(q)
+);
+
+document.getElementById("searchResults").innerHTML=
+d.results.length
+?d.results.map(codeCard).join("")
+:`<div class="card">نتیجه‌ای پیدا نشد.</div>`;
+}
+
+async function loadRanking(){
+
+const d=await api("/api/ranking");
+
+document.getElementById("rankingList").innerHTML=
+d.ranking.map(x=>`
+
+<div class="rank">
+
+<div class="ranknum">${x.rank}</div>
+
+<div style="flex:1">
+<b>@${escapeHtml(x.username)}</b>
+<div class="muted">
+LEVEL ${x.level} • ${x.codes} CODES
+</div>
+</div>
+
+<strong>${x.points} XP</strong>
+
+</div>
+
+`).join("");
+
+const mine=d.ranking.find(
+x=>x.username===ME.username
+);
+
+if(mine)
+document.getElementById("rank").textContent=
+"#"+mine.rank;
+}
+
+async function saveProfile(){
+
+const name=document.getElementById("profileName").value.trim();
+const bio=document.getElementById("profileBio").value.trim();
+
+await api("/api/profile",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+name,
+bio
+})
+});
+
+alert("پروفایل ذخیره شد ✓");
+
+await loadMe();
+}
+
+async function createDiscussion(){
+
+const title=document.getElementById("discussionTitle").value.trim();
+const body=document.getElementById("discussionBody").value.trim();
+
+if(!title||!body)return;
+
+await api("/api/discussions",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({title,body})
+});
+
+document.getElementById("discussionTitle").value="";
+document.getElementById("discussionBody").value="";
+
+loadCommunity();
+}
+
+async function createIssue(){
+
+const title=document.getElementById("issueTitle").value.trim();
+const body=document.getElementById("issueBody").value.trim();
+
+if(!title||!body)return;
+
+await api("/api/issues",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({title,body})
+});
+
+document.getElementById("issueTitle").value="";
+document.getElementById("issueBody").value="";
+
+loadCommunity();
+}
+
+async function loadCommunity(){
+
+const d=await api("/api/discussions");
+const i=await api("/api/issues");
+
+document.getElementById("discussionList").innerHTML=
+d.discussions.map(x=>`
+
+<div class="card">
+<h2>💬 ${escapeHtml(x.title)}</h2>
+<p>${escapeHtml(x.body)}</p>
+<div class="muted">
+@${escapeHtml(x.username)} • ${x.created_at}
+</div>
+</div>
+
+`).join("");
+
+document.getElementById("issueList").innerHTML=
+i.issues.map(x=>`
+
+<div class="card">
+<h2>🐛 ${escapeHtml(x.title)}</h2>
+<p>${escapeHtml(x.body)}</p>
+<div class="muted">
+@${escapeHtml(x.username)} • ${x.status}
+</div>
+</div>
+
+`).join("");
+}
+
+async function loadNotifications(){
+
+const d=await api("/api/notifications");
+
+document.getElementById("notifications").innerHTML=
+d.notifications.length
+?d.notifications.map(x=>`
+
+<div class="notice">
+${escapeHtml(x.text)}
+<br>
+<span class="muted">${x.created_at}</span>
+</div>
+
+`).join("")
+:`<div class="muted">اعلان جدیدی نداری.</div>`;
+}
+
+async function readNotifications(){
+
+await api("/api/notifications/read",{
+method:"POST"
+});
+
+loadNotifications();
+}
+
+async function logout(){
+
+await api("/api/logout",{
+method:"POST"
+});
+
+location.href="/";
+}
+
+function escapeHtml(text){
+
+return String(text??"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+}
+
+(async function(){
+
+try{
+
+await loadMe();
+await loadStats();
+await loadCodes();
+
+}catch(e){
+
+console.error(e);
+}
+
+})();
+
+</script>
+
+</body>
+</html>

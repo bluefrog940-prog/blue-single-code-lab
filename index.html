@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BLUE SINGLE CODE LAB</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+min-height:100vh;
+background:
+radial-gradient(circle at top,#09232d 0,#05080b 42%,#020305 100%);
+color:#eaffff;
+font-family:Arial,Tahoma,sans-serif;
+}
+
+.wrap{
+width:100%;
+max-width:480px;
+margin:auto;
+padding:25px 16px;
+}
+
+.logo{
+text-align:center;
+padding:35px 10px 25px;
+}
+
+.logo h1{
+margin:0;
+font-size:28px;
+color:#00eaff;
+text-shadow:
+0 0 5px #00eaff,
+0 0 20px #00798a,
+0 0 40px #00404a;
+}
+
+.logo p{
+color:#66828b;
+font-size:12px;
+letter-spacing:2px;
+}
+
+.card{
+background:rgba(5,12,17,.92);
+border:1px solid #123b47;
+border-radius:20px;
+padding:20px;
+box-shadow:
+0 0 30px rgba(0,220,255,.08),
+inset 0 0 25px rgba(0,220,255,.02);
+}
+
+.tabs{
+display:flex;
+gap:8px;
+margin-bottom:18px;
+}
+
+.tabs button{
+flex:1;
+padding:13px;
+border:1px solid #17404d;
+background:#071015;
+color:#71919b;
+border-radius:11px;
+font-weight:bold;
+}
+
+.tabs button.active{
+background:#00d9f5;
+color:#001014;
+box-shadow:0 0 18px rgba(0,217,245,.3);
+}
+
+.form{display:none}
+.form.active{display:block}
+
+label{
+display:block;
+margin:13px 0 6px;
+font-size:12px;
+color:#7ea4ae;
+}
+
+input{
+width:100%;
+padding:14px;
+background:#03070a;
+border:1px solid #153844;
+border-radius:10px;
+color:white;
+outline:none;
+}
+
+input:focus{
+border-color:#00d9f5;
+box-shadow:0 0 12px rgba(0,217,245,.15);
+}
+
+.btn{
+width:100%;
+margin-top:18px;
+padding:14px;
+border:0;
+border-radius:11px;
+background:#00d9f5;
+color:#001014;
+font-weight:bold;
+cursor:pointer;
+}
+
+.btn:active{
+transform:scale(.98);
+}
+
+.msg{
+text-align:center;
+min-height:22px;
+margin-top:14px;
+font-size:13px;
+}
+
+.server{
+margin-top:20px;
+padding:10px;
+border-radius:10px;
+background:#061217;
+border:1px solid #102d36;
+text-align:center;
+font-size:11px;
+color:#49d98b;
+}
+
+.footer{
+text-align:center;
+color:#3e5961;
+font-size:11px;
+margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+<div class="logo">
+<h1>BLUE SINGLE</h1>
+<p>CODE LAB // COMMUNITY</p>
+</div>
+
+<div class="card">
+
+<div class="tabs">
+<button id="lt" class="active" onclick="tab('login')">ورود</button>
+<button id="rt" onclick="tab('register')">ثبت‌نام</button>
+</div>
+
+<div id="login" class="form active">
+
+<label>نام کاربری</label>
+<input id="lu" autocomplete="username" placeholder="username">
+
+<label>رمز عبور</label>
+<input id="lp" type="password" autocomplete="current-password" placeholder="password">
+
+<button class="btn" onclick="login()">⚡ ورود به CODE LAB</button>
+
+</div>
+
+<div id="register" class="form">
+
+<label>نام</label>
+<input id="rn" placeholder="نام شما">
+
+<label>نام کاربری</label>
+<input id="ru" autocomplete="username" placeholder="username">
+
+<label>رمز عبور</label>
+<input id="rp" type="password" autocomplete="new-password" placeholder="حداقل ۶ کاراکتر">
+
+<button class="btn" onclick="register()">🚀 ساخت حساب</button>
+
+</div>
+
+<div id="msg" class="msg"></div>
+
+<div class="server">● SERVER ONLINE</div>
+
+</div>
+
+<div class="footer">
+BLUE SINGLE CODE LAB • v2
+</div>
+
+</div>
+
+<script>
+async function api(url,opt={}){
+const r=await fetch(url,{
+credentials:"same-origin",
+...opt
+});
+
+let d={};
+
+try{
+d=await r.json();
+}catch{}
+
+if(!r.ok)
+throw new Error(d.error||"خطای سرور");
+
+return d;
+}
+
+function msg(t,error=false){
+const x=document.getElementById("msg");
+x.textContent=t;
+x.style.color=error?"#ff6666":"#00eaff";
+}
+
+function tab(type){
+
+document.getElementById("login").classList.remove("active");
+document.getElementById("register").classList.remove("active");
+
+document.getElementById("lt").classList.remove("active");
+document.getElementById("rt").classList.remove("active");
+
+if(type==="login"){
+document.getElementById("login").classList.add("active");
+document.getElementById("lt").classList.add("active");
+}else{
+document.getElementById("register").classList.add("active");
+document.getElementById("rt").classList.add("active");
+}
+
+msg("");
+}
+
+async function login(){
+
+const username=document.getElementById("lu").value.trim();
+const password=document.getElementById("lp").value;
+
+if(!username||!password){
+msg("نام کاربری و رمز عبور را وارد کن",true);
+return;
+}
+
+msg("در حال اتصال...");
+
+try{
+
+const d=await api("/api/login",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+username,
+password
+})
+});
+
+if(d.ok){
+msg("✓ ورود موفق");
+setTimeout(()=>{
+location.href="/dashboard";
+},400);
+}
+
+}catch(e){
+msg(e.message,true);
+}
+}
+
+async function register(){
+
+const name=document.getElementById("rn").value.trim();
+const username=document.getElementById("ru").value.trim();
+const password=document.getElementById("rp").value;
+
+if(!username||!password){
+msg("نام کاربری و رمز عبور را وارد کن",true);
+return;
+}
+
+msg("در حال ساخت حساب...");
+
+try{
+
+const d=await api("/api/register",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+name:name||username,
+username,
+password
+})
+});
+
+if(d.ok){
+msg("✓ حساب ساخته شد");
+setTimeout(()=>{
+location.href="/dashboard";
+},400);
+}
+
+}catch(e){
+msg(e.message,true);
+}
+}
+
+(async()=>{
+try{
+const d=await api("/api/me");
+if(d.ok){
+location.href="/dashboard";
+}
+}catch{}
+})();
+</script>
+
+</body>
+</html>
